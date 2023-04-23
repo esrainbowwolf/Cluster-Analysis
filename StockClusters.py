@@ -7,12 +7,17 @@ import numpy as np
 reddit_posts = pd.read_csv('C:/Users/video/Desktop/School Stuff/Machine Learning/Project Data/finalData.csv')
 
 features=["sentiment","open","close","net"]
+#features=["sentiment","net"] #When you want a just sentiment and net worth to be the scaling factor
 reddit_posts = reddit_posts.dropna(subset=features)
 data=reddit_posts[features].copy()
-#Scale data
+#Scale data with linear scaling
 data = (data - data.min())/(data.max()-data.min())*10+1
-colors = ["#00FFFF","#FF00BF","#2EFE2E","#FAAC58","#DF013A","#AC58FA","#F7FE2E"]
-k=7
+#data['sentiment']=data['sentiment'].apply(lambda x: x*2) #used for making sentiment column have double the weight
+#data['net']=data['net'].apply(lambda x: x*2) #When you want to scale double the weight based on net amount
+#colors of the table and you can add/change whatever you want
+colors = ["#00FFFF","#FF00BF","#2EFE2E","#FAAC58","#DF013A"]
+#number of centroids
+k=5
 #Initialize random centroids
 def random_centroids(data,k):
     centroids = []
